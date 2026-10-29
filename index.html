@@ -8,12 +8,10 @@
 
   <title>Chá de Casa Nova | Flá & Duda</title>
 
-  <link rel="preconnect"
-        href="https://fonts.googleapis.com">
-  <link rel="preconnect"
-        href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Great+Vibes&family=Playfair+Display:wght@400;500;600&display=swap"
-        rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Great+Vibes&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -26,102 +24,134 @@
       --line: #ead7cf;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
-      background: var(--cream);
+      min-height: 100vh;
       color: var(--ink);
       font-family: "DM Sans", sans-serif;
-    }
 
-    .gingham {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      background:
-        repeating-linear-gradient(
+      /* Fundo quadriculado rosa e coral */
+      background-color: #fde3de;
+      background-image:
+        linear-gradient(
           90deg,
-          transparent 0 44px,
-          #f8b9c899 44px 88px
+          rgba(255,144,120,.73) 50%,
+          transparent 50%
         ),
-        repeating-linear-gradient(
+        linear-gradient(
           0deg,
-          transparent 0 44px,
-          #ff9c8677 44px 88px
+          rgba(248,168,190,.65) 50%,
+          transparent 50%
         );
+
+      background-size: 76px 76px;
+      background-attachment: fixed;
     }
 
+    /* Área central creme */
     .page {
-      max-width: 850px;
-      min-height: 100vh;
-      margin: auto;
-      padding: 40px clamp(18px,5vw,55px) 140px;
+      width: min(850px, calc(100% - 42px));
+      min-height: calc(100vh - 28px);
+      margin: 14px auto;
+
+      padding: 32px clamp(17px,5vw,55px) 142px;
+
       background: var(--cream);
-      box-shadow: 0 0 45px #7b374020;
+      border: 1px solid rgba(137,70,78,.11);
+      box-shadow: 0 8px 40px #7b374022;
+
+      position: relative;
     }
 
+    /* Cabeçalho */
     .hero {
+      position: relative;
+      isolation: isolate;
       text-align: center;
-      padding: 30px 8px 38px;
+
+      padding: 35px 6px 42px;
       border-bottom: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    /* Porta original como marca-d'água */
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 70px 0 0;
+
+      background-image: url("./porta.png");
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: contain;
+
+      opacity: .16;
+      pointer-events: none;
+      z-index: -1;
     }
 
     .overline {
       font-family: "Playfair Display", serif;
       font-size: 17px;
-      letter-spacing: .35em;
+      letter-spacing: .42em;
       text-transform: uppercase;
     }
 
     .script {
       font-family: "Great Vibes", cursive;
       font-weight: 400;
-      line-height: 1.2;
+      line-height: 1.16;
     }
 
     .hero h1 {
-      font-size: clamp(65px, 12vw, 105px);
+      font-size: clamp(58px,12vw,104px);
       color: var(--orange);
-      margin: 8px 0 -3px;
+      margin: 8px 0 -6px;
     }
 
     .names {
-      font-size: clamp(60px, 10vw, 90px);
+      font-size: clamp(55px,10vw,90px);
       color: var(--wine);
-      margin-bottom: 14px;
+      margin: 3px 0 0;
     }
 
     .hearts {
-      font-size: 22px;
       color: var(--wine);
+      font-size: 20px;
       letter-spacing: 9px;
-      margin: 12px 0 20px;
+      margin: 18px 0;
     }
 
     .intro {
       max-width: 510px;
-      margin: auto;
-      line-height: 1.8;
+      margin: 20px auto 0;
       font-size: 15px;
+      line-height: 1.8;
+      position: relative;
     }
 
+    /* Título da lista */
     .section-head {
       text-align: center;
-      padding: 40px 0 18px;
+      padding: 36px 0 17px;
     }
 
     .section-head h2 {
-      font: 400 clamp(30px, 5vw, 42px)
+      font: 400 clamp(29px,5vw,42px)
         "Playfair Display", serif;
-      margin: 0 0 12px;
+      margin: 0 0 10px;
+      color: var(--wine);
     }
 
     .section-head p {
+      margin: 0;
       color: #876a79;
       font-size: 14px;
-      line-height: 1.6;
+      line-height: 1.65;
     }
 
     .tools {
@@ -129,7 +159,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 12px;
-      margin: 18px 0;
+      margin: 20px 0;
       flex-wrap: wrap;
     }
 
@@ -139,8 +169,7 @@
     }
 
     button {
-      font-family: "DM Sans", sans-serif;
-      font-weight: 600;
+      font: 600 13px "DM Sans", sans-serif;
       cursor: pointer;
     }
 
@@ -152,10 +181,15 @@
       border-radius: 30px;
     }
 
+    .refresh:hover {
+      background: #fce7eb;
+    }
+
+    /* Categorias */
     .category {
-      background: #fffaf4;
+      background: rgba(255,250,244,.97);
       border: 1px solid var(--line);
-      border-radius: 15px;
+      border-radius: 14px;
       margin: 14px 0;
       overflow: hidden;
     }
@@ -164,12 +198,14 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      padding: 19px;
+      gap: 8px;
+
+      padding: 18px 19px;
       color: var(--wine);
       cursor: pointer;
       list-style: none;
-      font: 500 21px "Playfair Display", serif;
+
+      font: 500 20px "Playfair Display", serif;
     }
 
     .category summary::-webkit-details-marker {
@@ -178,7 +214,7 @@
 
     .category summary::after {
       content: "⌄";
-      font: 23px "DM Sans", sans-serif;
+      font: 22px "DM Sans", sans-serif;
     }
 
     .category[open] summary::after {
@@ -187,15 +223,18 @@
 
     .count {
       margin-left: auto;
-      font: 12px "DM Sans", sans-serif;
+      font: 11px "DM Sans", sans-serif;
       color: #967988;
+      white-space: nowrap;
     }
 
+    /* Presentes */
     .item {
       display: flex;
       align-items: center;
-      gap: 13px;
-      padding: 14px 19px;
+      gap: 12px;
+
+      padding: 13px 19px;
       border-top: 1px solid #f1e3dc;
       cursor: pointer;
     }
@@ -230,7 +269,7 @@
 
     .item.pending {
       background: #f8f3ed;
-      opacity: .7;
+      opacity: .73;
       cursor: default;
     }
 
@@ -240,13 +279,14 @@
       white-space: nowrap;
     }
 
+    /* Mensagens */
     .notice {
-      padding: 15px 18px;
+      padding: 14px 17px;
       background: #f5e2e7;
       color: var(--wine);
       border-radius: 12px;
       margin: 15px 0;
-      line-height: 1.6;
+      line-height: 1.5;
       font-size: 14px;
     }
 
@@ -262,30 +302,36 @@
     }
 
     .footer {
-      margin-top: 40px;
+      margin-top: 36px;
       text-align: center;
       font: 21px "Playfair Display", serif;
       color: var(--wine);
     }
 
+    /* Barra de confirmação */
     .bar {
       position: fixed;
+      z-index: 10;
       bottom: 0;
       left: 0;
       right: 0;
-      background: #fff8f0f7;
+
+      background: #fff8f0f9;
       border-top: 2px solid var(--pink);
-      padding: 15px 18px;
+      padding: 14px 18px
+        calc(14px + env(safe-area-inset-bottom));
+
       box-shadow: 0 -5px 24px #4b223014;
     }
 
     .bar-inner {
       max-width: 740px;
       margin: auto;
+
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 14px;
+      gap: 12px;
     }
 
     .bar strong {
@@ -304,7 +350,7 @@
       color: white;
       border: 0;
       border-radius: 35px;
-      padding: 15px 22px;
+      padding: 15px 20px;
       white-space: nowrap;
     }
 
@@ -313,20 +359,95 @@
       cursor: not-allowed;
     }
 
-    @media(max-width:480px) {
-      .page { padding-top: 22px; }
+    /* Versão mobile */
+    @media (max-width: 600px) {
+      body {
+        background-size: 54px 54px;
+      }
+
+      /* Mantém bordas quadriculadas visíveis */
+      .page {
+        width: calc(100% - 30px);
+        margin: 15px auto;
+        min-height: calc(100vh - 30px);
+        padding: 20px 16px 145px;
+      }
+
+      .hero {
+        padding: 25px 0 35px;
+        min-height: 370px;
+      }
+
+      /* Porta transparente no celular */
+      .hero::before {
+        inset: 80px 0 0;
+        opacity: .22;
+        background-size: contain;
+        background-position: center 55%;
+      }
+
+      .overline {
+        font-size: 13px;
+        letter-spacing: .32em;
+      }
+
+      .hero h1 {
+        font-size: clamp(58px,17vw,84px);
+        margin: 8px 0 -4px;
+      }
+
+      .names {
+        font-size: clamp(51px,15vw,77px);
+      }
+
+      .hearts {
+        font-size: 17px;
+        letter-spacing: 7px;
+      }
+
+      .intro {
+        font-size: 14px;
+        margin-top: 30px;
+      }
+
+      .section-head {
+        padding-top: 28px;
+      }
 
       .category summary {
-        padding: 16px 13px;
+        padding: 16px 12px;
         font-size: 18px;
       }
 
-      .item { padding: 13px; }
+      .item {
+        padding: 13px 12px;
+      }
 
-      .tag { font-size: 10px; }
+      .tag {
+        font-size: 10px;
+      }
+
+      .bar {
+        left: 7px;
+        right: 7px;
+        bottom: 7px;
+        border: 1px solid var(--pink);
+        border-radius: 13px;
+
+        padding: 12px 11px
+          calc(12px + env(safe-area-inset-bottom));
+      }
+
+      .bar strong {
+        font-size: 12px;
+      }
+
+      .bar small {
+        font-size: 10px;
+      }
 
       .confirm {
-        padding: 13px 14px;
+        padding: 12px 13px;
         font-size: 12px;
       }
     }
@@ -334,15 +455,16 @@
 </head>
 
 <body>
-  <div class="gingham" aria-hidden="true"></div>
-
   <main class="page">
+
     <header class="hero">
       <div class="overline">Chá de</div>
 
       <h1 class="script">casa nova</h1>
 
-      <div class="names script">Flá &amp; Duda</div>
+      <div class="names script">
+        Flá &amp; Duda
+      </div>
 
       <div class="hearts" aria-hidden="true">
         ♥ ♥ ♥
@@ -353,14 +475,19 @@
         com muito amor!
         <br><br>
         Sua presença já é um presente.
+        <br>
         Se quiser nos ajudar nessa nova fase,
         escolha um mimo da nossa lista. ♡
       </p>
     </header>
 
-    <section>
+    <section aria-labelledby="list-title">
+
       <div class="section-head">
-        <h2>Nossa lista de presentes</h2>
+        <h2 id="list-title">
+          Nossa lista de presentes
+        </h2>
+
         <p>
           Escolha com carinho o que gostaria
           de nos presentear.
@@ -372,13 +499,18 @@
           Carregando presentes...
         </span>
 
-        <button class="refresh" id="reload">
+        <button
+          class="refresh"
+          id="reload"
+          type="button">
           ↻ Atualizar lista
         </button>
       </div>
 
-      <div id="notice" role="status"
-           aria-live="polite"></div>
+      <div
+        id="notice"
+        role="status"
+        aria-live="polite"></div>
 
       <div id="loading">
         Carregando a lista...
@@ -394,25 +526,38 @@
 
   <div class="bar">
     <div class="bar-inner">
+
       <div>
         <strong id="selectionCount">
           Nenhum presente selecionado
         </strong>
+
         <small>
           Selecione e confirme sua escolha
         </small>
       </div>
 
-      <button id="confirm" class="confirm" disabled>
+      <button
+        id="confirm"
+        class="confirm"
+        type="button"
+        disabled>
         Confirmar presentes ♡
       </button>
+
     </div>
   </div>
 
   <script>
-    // PRESENTES NOVOS
-    // Quando cadastrados no Google Sheets,
-    // ficam disponíveis automaticamente.
+    /*
+      Presentes adicionais.
+
+      Itens que ainda não existem no Google Sheets
+      aparecem como "Aguardando cadastro".
+
+      Quando estiverem na planilha com status
+      Disponível, podem ser selecionados normalmente.
+    */
 
     const presentesNovos = [
       ["Cortador de pizza", "Cozinha"],
@@ -425,11 +570,11 @@
       ["Rolo de massa", "Cozinha"],
       ["Centrífuga de salada", "Cozinha"],
       ["Bowl de inox", "Cozinha"],
-      ["Meleira", "Mesa Posta"],
-      ["Organizador de chá em madeira", "Mesa Posta"],
-      ["Bomboniere", "Mesa Posta"],
-      ["Jogo de taças de vinho", "Mesa Posta"],
-      ["Jogo de taças de espumante", "Mesa Posta"],
+      ["Meleira", "Mesa posta"],
+      ["Organizador de chá em madeira", "Mesa posta"],
+      ["Bomboniere", "Mesa posta"],
+      ["Jogo de taças de vinho", "Mesa posta"],
+      ["Jogo de taças de espumante", "Mesa posta"],
       ["Cafeteira", "Eletroportáteis"]
     ];
 
@@ -451,33 +596,37 @@
         .toLowerCase();
     }
 
+    // Exibe mensagens ao convidado
     function message(text, error = false) {
       notice.replaceChildren();
 
       if (!text) return;
 
       const div = document.createElement("div");
-      div.className = "notice" + (error ? " error" : "");
+      div.className = "notice" +
+        (error ? " error" : "");
+
       div.textContent = text;
       notice.append(div);
     }
 
+    // Atualiza o botão de confirmação
     function updateButton() {
-      const number = selected.size;
+      const n = selected.size;
 
       document.querySelector("#selectionCount")
-        .textContent = number
-          ? `${number} presente(s) selecionado(s)`
+        .textContent = n
+          ? `${n} presente(s) selecionado(s)`
           : "Nenhum presente selecionado";
 
-      confirmBtn.disabled = busy || !number;
+      confirmBtn.disabled = busy || !n;
+
       confirmBtn.textContent = busy
         ? "Aguarde..."
         : "Confirmar presentes ♡";
     }
 
-    // Combina a lista da planilha com os novos itens.
-    // Itens ainda ausentes da planilha ficam desabilitados.
+    // Combina os presentes da planilha com os novos
     function addNewItems(serverItems) {
       const result = serverItems.map(item => ({
         ...item,
@@ -502,6 +651,7 @@
       return result;
     }
 
+    // Renderiza as categorias e checkboxes
     function render() {
       const expanded = new Set(
         [...list.querySelectorAll("details[open]")]
@@ -537,8 +687,9 @@
         count.className = "count";
 
         count.textContent =
-          group.filter(i => !i.reserved && !i.pending).length +
-          " disponíveis";
+          group.filter(
+            i => !i.reserved && !i.pending
+          ).length + " disponíveis";
 
         summary.append(title, count);
         details.append(summary);
@@ -608,19 +759,22 @@
       updateButton();
     }
 
+    // Carrega os dados via API da Vercel
     async function load() {
       try {
         const response = await fetch("/api/items", {
           cache: "no-store"
         });
 
+        if (!response.ok) {
+          throw new Error(
+            "Não foi possível consultar os presentes."
+          );
+        }
+
         const data = await response.json();
 
-        if (
-          !response.ok ||
-          !data.ok ||
-          !Array.isArray(data.items)
-        ) {
+        if (!data.ok || !Array.isArray(data.items)) {
           throw new Error(
             data.error || "Erro ao carregar presentes"
           );
@@ -639,10 +793,12 @@
         );
 
         loading.hidden = true;
+        message("");
         render();
 
       } catch (error) {
         loading.hidden = false;
+
         loading.textContent =
           "Não foi possível carregar os presentes.";
 
@@ -650,6 +806,7 @@
       }
     }
 
+    // Confirma a seleção
     confirmBtn.addEventListener("click", async () => {
       if (busy || !selected.size) return;
 
@@ -668,9 +825,11 @@
       try {
         const response = await fetch("/api/reserve", {
           method: "POST",
+
           headers: {
             "Content-Type": "application/json"
           },
+
           body: JSON.stringify({
             items: chosen
           })
@@ -691,7 +850,9 @@
         }
 
         if (!Array.isArray(data.items)) {
-          throw new Error("Resposta inválida do servidor");
+          throw new Error(
+            "Resposta inválida do servidor"
+          );
         }
 
         selected.clear();
@@ -700,9 +861,9 @@
         render();
 
         message(
-          "Presentes confirmados! Muito obrigada pelo " +
-          "carinho. Agora estão indisponíveis para os " +
-          "outros convidados. ♡"
+          "Presentes confirmados! Muito obrigada " +
+          "pelo carinho. Agora estão indisponíveis " +
+          "para os outros convidados. ♡"
         );
 
       } catch (error) {
@@ -721,18 +882,21 @@
       }
     });
 
+    // Atualização manual
     document.querySelector("#reload")
       .addEventListener("click", () => {
         message("");
         load();
       });
 
+    // Carregamento inicial
     load();
 
-    // Atualização automática
+    // Atualização automática a cada 30 segundos
     setInterval(() => {
       if (!busy) load();
     }, 30000);
+
   </script>
 </body>
 </html>
