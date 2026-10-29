@@ -4,133 +4,237 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f0e8">
-  <title>Chá de Casa Nova | Lista de Presentes</title>
+  <meta name="theme-color" content="#fbf3e4">
+
+  <title>Chá de Casa Nova | Flá & Duda</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Great+Vibes&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      font-family: Arial, sans-serif;
-      color: #3f493c;
-      background: #f5f0e8;
+      --cream: #fbf3e4;
+      --pink: #f8b9c8;
+      --coral: #ff9c86;
+      --orange: #f8792d;
+      --wine: #963052;
+      --ink: #513746;
+      --line: #ead7cf;
     }
 
-    * { box-sizing: border-box; }
-    body { margin: 0; }
-
-    .wrap {
-      max-width: 790px;
-      margin: auto;
-      padding: 22px 18px 110px;
+    * {
+      box-sizing: border-box;
     }
 
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    /* Fundo xadrez inspirado no convite */
+    .gingham {
+      position: fixed;
+      z-index: -1;
+      inset: 0;
+      pointer-events: none;
+
+      background:
+        linear-gradient(
+          90deg,
+          rgba(255,156,134,.65) 50%,
+          transparent 50%
+        ) 0 0 / 90px 90px,
+
+        linear-gradient(
+          rgba(248,185,200,.75) 50%,
+          transparent 50%
+        ) 0 0 / 90px 90px;
+
+      opacity: .65;
+    }
+
+    .page {
+      max-width: 850px;
+      margin: 0 auto;
+      background: var(--cream);
+      min-height: 100vh;
+      padding: 42px clamp(18px,5vw,56px) 130px;
+      box-shadow: 0 0 40px #7b374017;
+    }
+
+    /* Cabeçalho */
     .hero {
-      border: 1px solid #d8d0bf;
-      background: #faf8f2;
-      border-radius: 24px;
       text-align: center;
-      padding: 46px 18px;
-      margin-bottom: 24px;
+      padding: 22px 10px 38px;
+      border-bottom: 1px solid var(--line);
     }
 
-    .eyebrow {
-      font-size: 12px;
-      letter-spacing: .23em;
+    .overline {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      letter-spacing: .42em;
       text-transform: uppercase;
-      color: #8c795e;
+    }
+
+    .script {
+      font-family: 'Great Vibes', cursive;
+      font-weight: 400;
+      line-height: 1.15;
     }
 
     .hero h1 {
-      font-family: Georgia, serif;
-      font-size: clamp(35px, 7vw, 58px);
-      font-weight: 400;
-      margin: 16px 0;
-      color: #53634c;
+      font-size: clamp(64px,12vw,108px);
+      color: var(--orange);
+      margin: 4px 0 -4px;
     }
 
-    .hero p {
-      line-height: 1.6;
-      color: #706d60;
-      max-width: 420px;
+    .names {
+      font-size: clamp(56px,10vw,92px);
+      color: var(--wine);
+      margin: 0 0 18px;
+    }
+
+    .ornament {
+      font-size: 25px;
+      color: var(--wine);
+      letter-spacing: 10px;
+      margin-bottom: 14px;
+    }
+
+    .intro {
+      font-size: 15px;
+      line-height: 1.8;
+      max-width: 500px;
       margin: 0 auto;
     }
 
-    .toolbar {
+    /* Título da lista */
+    .section-head {
+      text-align: center;
+      padding: 35px 0 18px;
+    }
+
+    .section-head h2 {
+      font: 400 clamp(31px,5vw,42px)
+        'Playfair Display', serif;
+
+      margin: 0 0 10px;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: #846875;
+      font-size: 14px;
+    }
+
+    .tools {
       display: flex;
       justify-content: space-between;
-      gap: 12px;
       align-items: center;
-      margin: 24px 0 16px;
+      gap: 12px;
+      margin: 20px 0;
       flex-wrap: wrap;
     }
 
-    .toolbar h2 {
-      font-family: Georgia, serif;
-      font-weight: 400;
-      font-size: 26px;
-      margin: 0;
-    }
-
     .status {
-      color: #6c7567;
       font-size: 13px;
+      color: #826777;
     }
 
+    button {
+      font: 600 13px 'DM Sans', sans-serif;
+      cursor: pointer;
+    }
+
+    .refresh {
+      border: 1px solid #d5a7b4;
+      border-radius: 50px;
+      color: var(--wine);
+      background: transparent;
+      padding: 10px 16px;
+    }
+
+    .refresh:hover {
+      background: #fce7eb;
+    }
+
+    /* Categorias */
     .category {
-      background: #fffdf9;
-      border: 1px solid #e4ddcf;
-      border-radius: 18px;
-      margin: 13px 0;
+      margin: 14px 0;
+      background: #fffaf2;
+      border: 1px solid var(--line);
+      border-radius: 14px;
       overflow: hidden;
     }
 
     .category summary {
-      cursor: pointer;
-      padding: 19px 20px;
-      font-family: Georgia, serif;
-      font-size: 21px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      cursor: pointer;
+      padding: 18px 20px;
+      color: var(--wine);
+
+      font: 500 21px 'Playfair Display', serif;
+      list-style: none;
     }
 
-    .category summary::marker { content: ''; }
-    .category summary::-webkit-details-marker { display: none; }
+    .category summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .category summary::after {
+      content: '⌄';
+      font: 22px 'DM Sans', sans-serif;
+    }
+
+    .category[open] summary::after {
+      content: '⌃';
+    }
 
     .count {
-      font: 12px Arial, sans-serif;
-      color: #898b7f;
+      margin-left: auto;
+      font: 12px 'DM Sans', sans-serif;
+      color: #987786;
     }
 
+    /* Presentes */
     .item {
       display: flex;
-      gap: 12px;
+      gap: 13px;
       align-items: center;
-      justify-content: space-between;
-      padding: 13px 20px;
-      border-top: 1px solid #f0eae0;
+      padding: 14px 20px;
+      border-top: 1px solid #f2e4dd;
       cursor: pointer;
     }
 
-    .item:hover { background: #f9f7f1; }
+    .item:hover {
+      background: #fff0ee;
+    }
 
     .item input {
-      width: 20px;
-      height: 20px;
-      accent-color: #607458;
-      cursor: pointer;
+      accent-color: var(--wine);
+      width: 19px;
+      height: 19px;
       flex-shrink: 0;
+      cursor: pointer;
     }
 
-    .item .name {
+    .name {
       flex: 1;
-      font-size: 15px;
-      line-height: 1.4;
+      font-size: 14px;
+      line-height: 1.45;
     }
 
     .item.taken {
-      color: #9b9a92;
-      background: #f7f5f0;
+      opacity: .62;
       cursor: default;
+      background: #f8f0eb;
     }
 
     .item.taken .name {
@@ -139,140 +243,221 @@
 
     .tag {
       font-size: 11px;
-      color: #918b7d;
       white-space: nowrap;
+      color: #8b6f79;
     }
 
-    .bottom {
+    /* Mensagens */
+    .notice {
+      padding: 14px 17px;
+      background: #f6e4e8;
+      color: var(--wine);
+      border-radius: 12px;
+      margin: 15px 0;
+      line-height: 1.5;
+    }
+
+    .notice.error {
+      background: #ffe1dc;
+      color: #963c32;
+    }
+
+    #loading {
+      text-align: center;
+      padding: 28px;
+      color: #8a7080;
+    }
+
+    .footer {
+      margin-top: 36px;
+      text-align: center;
+      color: #946e7e;
+      font: 19px 'Playfair Display', serif;
+    }
+
+    /* Barra de confirmação */
+    .bar {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      background: #f5f0e8f5;
-      border-top: 1px solid #d8d0bf;
-      padding: 12px 18px;
+      background: #fff8f0f7;
+      border-top: 2px solid var(--pink);
+      box-shadow: 0 -5px 24px #4b223014;
+      padding: 15px 18px;
     }
 
-    .bottom-inner {
-      max-width: 790px;
+    .bar-inner {
+      max-width: 740px;
       margin: auto;
       display: flex;
-      gap: 14px;
       align-items: center;
       justify-content: space-between;
+      gap: 14px;
     }
 
-    .bottom strong { font-size: 14px; }
-
-    .bottom small {
+    .bar strong {
       display: block;
-      color: #7d7b71;
-      margin-top: 4px;
+      font-size: 14px;
     }
 
-    button {
+    .bar small {
+      display: block;
+      font-size: 12px;
+      color: #987b88;
+      margin-top: 5px;
+    }
+
+    .confirm {
       border: 0;
-      background: #596f53;
+      border-radius: 50px;
+      background: var(--wine);
       color: white;
-      border-radius: 11px;
       padding: 15px 22px;
-      font-weight: bold;
-      cursor: pointer;
+      white-space: nowrap;
     }
 
-    button:disabled {
-      opacity: .5;
+    .confirm:disabled {
+      opacity: .45;
       cursor: not-allowed;
     }
 
-    .message {
-      border-radius: 12px;
-      padding: 14px 16px;
-      margin: 14px 0;
-      background: #e5ebe1;
-      color: #3f593a;
-      line-height: 1.5;
-    }
-
-    .message.error {
-      background: #f6e6e1;
-      color: #884c3e;
-    }
-
-    .reload {
-      background: none;
-      border: 1px solid #a5b09d;
-      color: #53634c;
-      padding: 9px 12px;
-      font-size: 12px;
-    }
-
-    .footer {
-      text-align: center;
-      color: #8b8579;
-      font-size: 12px;
-      margin: 30px 0;
-    }
-
-    #loading {
-      padding: 25px;
-      text-align: center;
-      color: #7a776b;
-    }
-
     @media(max-width:480px) {
-      .bottom-inner { align-items: stretch; }
-      .bottom button { padding: 12px; }
-      .tag { font-size: 10px; }
+      .page {
+        padding-top: 25px;
+      }
+
+      .overline {
+        font-size: 14px;
+      }
+
+      .category summary {
+        font-size: 18px;
+        padding: 16px 13px;
+      }
+
+      .item {
+        padding: 13px;
+      }
+
+      .bar-inner {
+        gap: 8px;
+      }
+
+      .confirm {
+        padding: 13px 14px;
+        font-size: 12px;
+      }
+
+      .tag {
+        font-size: 10px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <main class="wrap">
+  <div class="gingham" aria-hidden="true"></div>
+
+  <main class="page">
+
     <header class="hero">
-      <div class="eyebrow">
-        Com carinho, para o nosso novo lar
+      <div class="overline">Chá de</div>
+
+      <h1 class="script">casa nova</h1>
+
+      <div class="names script">
+        Flá &amp; Duda
       </div>
-      <h1>Chá de Casa Nova</h1>
-      <p>
-        Sua presença já é um presente!
-        Se quiser nos ajudar a construir nosso cantinho,
-        escolha um item da lista abaixo.
+
+      <div class="ornament" aria-hidden="true">
+        ♥ ♥ ♥
+      </div>
+
+      <p class="intro">
+        Estamos preparando nosso novo cantinho
+        com muito amor!
+
+        Sua presença já é um presente.
+
+        Se quiser nos ajudar nessa nova fase,
+        escolha um mimo da nossa lista. ♡
       </p>
     </header>
 
-    <div class="toolbar">
-      <h2>Nossa lista de presentes</h2>
-      <button class="reload" id="reload">
-        ↻ Atualizar lista
-      </button>
-    </div>
+    <section aria-labelledby="list-title">
 
-    <div class="status" id="status">
-      Carregando presentes...
-    </div>
+      <div class="section-head">
+        <h2 id="list-title">
+          Nossa lista de presentes
+        </h2>
 
-    <div id="notice" role="status" aria-live="polite"></div>
-    <div id="loading">Carregando a lista...</div>
-    <section id="list"></section>
+        <p>
+          Escolha com carinho o que gostaria
+          de nos presentear.
+        </p>
+      </div>
+
+      <div class="tools">
+        <span
+          class="status"
+          id="status"
+          aria-live="polite"
+        >
+          Carregando presentes...
+        </span>
+
+        <button
+          class="refresh"
+          id="reload"
+          type="button"
+        >
+          ↻ Atualizar lista
+        </button>
+      </div>
+
+      <div
+        id="notice"
+        role="status"
+        aria-live="polite"
+      ></div>
+
+      <div id="loading">
+        Carregando a lista...
+      </div>
+
+      <div id="list"></div>
+
+    </section>
 
     <p class="footer">
-      Obrigada por fazer parte desse novo capítulo ♡
+      Com amor, Flá &amp; Duda ♡
     </p>
+
   </main>
 
-  <div class="bottom">
-    <div class="bottom-inner">
+  <div class="bar">
+    <div class="bar-inner">
+
       <div>
         <strong id="selectionCount">
           Nenhum presente selecionado
         </strong>
-        <small>Escolha e confirme para reservar</small>
+
+        <small>
+          Selecione e confirme sua escolha
+        </small>
       </div>
-      <button id="confirm" disabled>
-        Confirmar seleção
+
+      <button
+        id="confirm"
+        class="confirm"
+        type="button"
+        disabled
+      >
+        Confirmar presentes ♡
       </button>
+
     </div>
   </div>
 
@@ -286,32 +471,49 @@
     const notice = document.querySelector('#notice');
     const confirmBtn = document.querySelector('#confirm');
 
+    // Mensagens para o convidado
     function message(text, error = false) {
       notice.replaceChildren();
+
       if (!text) return;
 
       const p = document.createElement('div');
-      p.className = 'message' + (error ? ' error' : '');
+
+      p.className = 'notice' + (error ? ' error' : '');
       p.textContent = text;
+
       notice.append(p);
     }
 
+    // Atualiza botão de confirmação
     function updateButton() {
-      document.querySelector('#selectionCount').textContent =
-        selected.size
-          ? `${selected.size} presente(s) selecionado(s)`
-          : 'Nenhum presente selecionado';
+      document.querySelector(
+        '#selectionCount'
+      ).textContent = selected.size
+        ? `${selected.size} presente(s) selecionado(s)`
+        : 'Nenhum presente selecionado';
 
       confirmBtn.disabled = busy || !selected.size;
+
       confirmBtn.textContent = busy
         ? 'Aguarde...'
-        : 'Confirmar seleção';
+        : 'Confirmar presentes ♡';
     }
 
+    // Mostra os presentes por categoria
     function render() {
+      const expanded = new Set(
+        [...list.querySelectorAll('details[open]')]
+          .map(d => d.dataset.category)
+      );
+
+      const firstRender = !list.children.length;
+
       list.replaceChildren();
 
-      const groups = [...new Set(items.map(x => x.category))];
+      const groups = [
+        ...new Set(items.map(x => x.category))
+      ];
 
       for (const category of groups) {
         const group = items.filter(
@@ -320,7 +522,11 @@
 
         const details = document.createElement('details');
         details.className = 'category';
-        details.open = groups.indexOf(category) === 0;
+        details.dataset.category = category;
+
+        details.open = firstRender
+          ? groups.indexOf(category) === 0
+          : expanded.has(category);
 
         const summary = document.createElement('summary');
 
@@ -329,6 +535,7 @@
 
         const count = document.createElement('span');
         count.className = 'count';
+
         count.textContent =
           `${group.filter(x => !x.reserved).length} disponíveis`;
 
@@ -337,12 +544,15 @@
 
         for (const item of group) {
           const row = document.createElement('label');
+
           row.className =
             'item' + (item.reserved ? ' taken' : '');
 
           const check = document.createElement('input');
           check.type = 'checkbox';
+
           check.disabled = item.reserved || busy;
+
           check.checked =
             item.reserved || selected.has(item.name);
 
@@ -352,6 +562,7 @@
             } else {
               selected.delete(item.name);
             }
+
             updateButton();
           });
 
@@ -365,6 +576,7 @@
             const tag = document.createElement('span');
             tag.className = 'tag';
             tag.textContent = 'Indisponível';
+
             row.append(tag);
           }
 
@@ -381,6 +593,7 @@
       updateButton();
     }
 
+    // Busca presentes no Google Sheets via Vercel
     async function load() {
       try {
         const response = await fetch('/api/items', {
@@ -389,29 +602,41 @@
 
         const data = await response.json();
 
-        if (!response.ok || !data.ok ||
-            !Array.isArray(data.items)) {
-          throw Error(data.error || 'Erro ao carregar');
+        if (
+          !response.ok ||
+          !data.ok ||
+          !Array.isArray(data.items)
+        ) {
+          throw Error(
+            data.error || 'Erro ao carregar'
+          );
         }
 
         items = data.items;
 
         selected = new Set(
           [...selected].filter(n =>
-            items.some(i => i.name === n && !i.reserved)
+            items.some(
+              i => i.name === n && !i.reserved
+            )
           )
         );
 
         document.querySelector('#loading').hidden = true;
+
         render();
 
       } catch (e) {
+        document.querySelector('#loading').hidden = false;
+
         document.querySelector('#loading').textContent =
           'Não foi possível carregar a lista. Clique em Atualizar lista.';
+
         message(e.message, true);
       }
     }
 
+    // Confirma seleção dos presentes
     confirmBtn.addEventListener('click', async () => {
       if (busy || !selected.size) return;
 
@@ -423,15 +648,21 @@
       )) return;
 
       busy = true;
+
       updateButton();
+      render();
 
       try {
         const response = await fetch('/api/reserve', {
           method: 'POST',
+
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ items: chosen })
+
+          body: JSON.stringify({
+            items: chosen
+          })
         });
 
         const data = await response.json();
@@ -442,46 +673,57 @@
             'Não foi possível confirmar. Confira a lista atualizada.',
             true
           );
+
           selected.clear();
           await load();
           return;
         }
 
+        if (!Array.isArray(data.items)) {
+          throw Error('Resposta inválida do servidor');
+        }
+
         selected.clear();
         items = data.items;
+
         render();
 
         message(
-          'Presente(s) confirmado(s)! Obrigada pelo carinho. ' +
-          'Agora estão indisponíveis para outras pessoas.'
+          'Presentes confirmados! Obrigada pelo carinho. ' +
+          'Agora eles estão indisponíveis para outras pessoas. ♡'
         );
 
       } catch (e) {
         message(
-          'Não foi possível confirmar. Atualize a lista para ' +
-          'verificar se a escolha foi registrada.',
+          'Não foi possível confirmar. Atualize a lista ' +
+          'para verificar se a escolha foi registrada.',
           true
         );
+
         selected.clear();
         await load();
 
       } finally {
         busy = false;
-        updateButton();
+        render();
       }
     });
 
+    // Atualização manual
     document.querySelector('#reload')
       .addEventListener('click', () => {
         message('');
         load();
       });
 
+    // Carregamento inicial
     load();
 
+    // Atualiza a lista a cada 30 segundos
     setInterval(() => {
       if (!busy) load();
     }, 30000);
+
   </script>
 </body>
 </html>
