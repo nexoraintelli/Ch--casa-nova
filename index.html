@@ -2,901 +2,1179 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#fbf3e4">
-
-  <title>Chá de Casa Nova | Flá & Duda</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Great+Vibes&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --cream: #fbf3e4;
-      --pink: #f8b9c8;
-      --coral: #ff9c86;
-      --orange: #f8792d;
-      --wine: #963052;
-      --ink: #513746;
-      --line: #ead7cf;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      color: var(--ink);
-      font-family: "DM Sans", sans-serif;
-
-      /* Fundo quadriculado rosa e coral */
-      background-color: #fde3de;
-      background-image:
-        linear-gradient(
-          90deg,
-          rgba(255,144,120,.73) 50%,
-          transparent 50%
-        ),
-        linear-gradient(
-          0deg,
-          rgba(248,168,190,.65) 50%,
-          transparent 50%
-        );
-
-      background-size: 76px 76px;
-      background-attachment: fixed;
-    }
-
-    /* Área central creme */
-    .page {
-      width: min(850px, calc(100% - 42px));
-      min-height: calc(100vh - 28px);
-      margin: 14px auto;
-
-      padding: 32px clamp(17px,5vw,55px) 142px;
-
-      background: var(--cream);
-      border: 1px solid rgba(137,70,78,.11);
-      box-shadow: 0 8px 40px #7b374022;
-
-      position: relative;
-    }
-
-    /* Cabeçalho */
-    .hero {
-      position: relative;
-      isolation: isolate;
-      text-align: center;
-
-      padding: 35px 6px 42px;
-      border-bottom: 1px solid var(--line);
-      overflow: hidden;
-    }
-
-    /* Porta original como marca-d'água */
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 70px 0 0;
-
-      background-image: url("./porta.png");
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: contain;
-
-      opacity: .16;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .overline {
-      font-family: "Playfair Display", serif;
-      font-size: 17px;
-      letter-spacing: .42em;
-      text-transform: uppercase;
-    }
-
-    .script {
-      font-family: "Great Vibes", cursive;
-      font-weight: 400;
-      line-height: 1.16;
-    }
-
-    .hero h1 {
-      font-size: clamp(58px,12vw,104px);
-      color: var(--orange);
-      margin: 8px 0 -6px;
-    }
-
-    .names {
-      font-size: clamp(55px,10vw,90px);
-      color: var(--wine);
-      margin: 3px 0 0;
-    }
-
-    .hearts {
-      color: var(--wine);
-      font-size: 20px;
-      letter-spacing: 9px;
-      margin: 18px 0;
-    }
-
-    .intro {
-      max-width: 510px;
-      margin: 20px auto 0;
-      font-size: 15px;
-      line-height: 1.8;
-      position: relative;
-    }
-
-    /* Título da lista */
-    .section-head {
-      text-align: center;
-      padding: 36px 0 17px;
-    }
-
-    .section-head h2 {
-      font: 400 clamp(29px,5vw,42px)
-        "Playfair Display", serif;
-      margin: 0 0 10px;
-      color: var(--wine);
-    }
-
-    .section-head p {
-      margin: 0;
-      color: #876a79;
-      font-size: 14px;
-      line-height: 1.65;
-    }
-
-    .tools {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin: 20px 0;
-      flex-wrap: wrap;
-    }
-
-    .status {
-      font-size: 13px;
-      color: #846c78;
-    }
-
-    button {
-      font: 600 13px "DM Sans", sans-serif;
-      cursor: pointer;
-    }
-
-    .refresh {
-      background: transparent;
-      border: 1px solid #d5a7b4;
-      color: var(--wine);
-      padding: 10px 16px;
-      border-radius: 30px;
-    }
-
-    .refresh:hover {
-      background: #fce7eb;
-    }
-
-    /* Categorias */
-    .category {
-      background: rgba(255,250,244,.97);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      margin: 14px 0;
-      overflow: hidden;
-    }
-
-    .category summary {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-
-      padding: 18px 19px;
-      color: var(--wine);
-      cursor: pointer;
-      list-style: none;
-
-      font: 500 20px "Playfair Display", serif;
-    }
-
-    .category summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .category summary::after {
-      content: "⌄";
-      font: 22px "DM Sans", sans-serif;
-    }
-
-    .category[open] summary::after {
-      content: "⌃";
-    }
-
-    .count {
-      margin-left: auto;
-      font: 11px "DM Sans", sans-serif;
-      color: #967988;
-      white-space: nowrap;
-    }
-
-    /* Presentes */
-    .item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-
-      padding: 13px 19px;
-      border-top: 1px solid #f1e3dc;
-      cursor: pointer;
-    }
-
-    .item:hover {
-      background: #fff0ee;
-    }
-
-    .item input {
-      width: 20px;
-      height: 20px;
-      accent-color: var(--wine);
-      flex-shrink: 0;
-      cursor: pointer;
-    }
-
-    .name {
-      flex: 1;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .item.taken {
-      background: #f8f0eb;
-      color: #a18b92;
-      cursor: default;
-    }
-
-    .item.taken .name {
-      text-decoration: line-through;
-    }
-
-    .item.pending {
-      background: #f8f3ed;
-      opacity: .73;
-      cursor: default;
-    }
-
-    .tag {
-      font-size: 11px;
-      color: #927583;
-      white-space: nowrap;
-    }
-
-    /* Mensagens */
-    .notice {
-      padding: 14px 17px;
-      background: #f5e2e7;
-      color: var(--wine);
-      border-radius: 12px;
-      margin: 15px 0;
-      line-height: 1.5;
-      font-size: 14px;
-    }
-
-    .notice.error {
-      background: #ffe0d9;
-      color: #963c32;
-    }
-
-    #loading {
-      padding: 28px;
-      text-align: center;
-      color: #886d7c;
-    }
-
-    .footer {
-      margin-top: 36px;
-      text-align: center;
-      font: 21px "Playfair Display", serif;
-      color: var(--wine);
-    }
-
-    /* Barra de confirmação */
-    .bar {
-      position: fixed;
-      z-index: 10;
-      bottom: 0;
-      left: 0;
-      right: 0;
-
-      background: #fff8f0f9;
-      border-top: 2px solid var(--pink);
-      padding: 14px 18px
-        calc(14px + env(safe-area-inset-bottom));
-
-      box-shadow: 0 -5px 24px #4b223014;
-    }
-
-    .bar-inner {
-      max-width: 740px;
-      margin: auto;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .bar strong {
-      font-size: 14px;
-    }
-
-    .bar small {
-      display: block;
-      font-size: 12px;
-      color: #987b88;
-      margin-top: 5px;
-    }
-
-    .confirm {
-      background: var(--wine);
-      color: white;
-      border: 0;
-      border-radius: 35px;
-      padding: 15px 20px;
-      white-space: nowrap;
-    }
-
-    .confirm:disabled {
-      opacity: .45;
-      cursor: not-allowed;
-    }
-
-    /* Versão mobile */
-    @media (max-width: 600px) {
-      body {
-        background-size: 54px 54px;
-      }
-
-      /* Mantém bordas quadriculadas visíveis */
-      .page {
-        width: calc(100% - 30px);
-        margin: 15px auto;
-        min-height: calc(100vh - 30px);
-        padding: 20px 16px 145px;
-      }
-
-      .hero {
-        padding: 25px 0 35px;
-        min-height: 370px;
-      }
-
-      /* Porta transparente no celular */
-      .hero::before {
-        inset: 80px 0 0;
-        opacity: .22;
-        background-size: contain;
-        background-position: center 55%;
-      }
-
-      .overline {
-        font-size: 13px;
-        letter-spacing: .32em;
-      }
-
-      .hero h1 {
-        font-size: clamp(58px,17vw,84px);
-        margin: 8px 0 -4px;
-      }
-
-      .names {
-        font-size: clamp(51px,15vw,77px);
-      }
-
-      .hearts {
-        font-size: 17px;
-        letter-spacing: 7px;
-      }
-
-      .intro {
-        font-size: 14px;
-        margin-top: 30px;
-      }
-
-      .section-head {
-        padding-top: 28px;
-      }
-
-      .category summary {
-        padding: 16px 12px;
-        font-size: 18px;
-      }
-
-      .item {
-        padding: 13px 12px;
-      }
-
-      .tag {
-        font-size: 10px;
-      }
-
-      .bar {
-        left: 7px;
-        right: 7px;
-        bottom: 7px;
-        border: 1px solid var(--pink);
-        border-radius: 13px;
-
-        padding: 12px 11px
-          calc(12px + env(safe-area-inset-bottom));
-      }
-
-      .bar strong {
-        font-size: 12px;
-      }
-
-      .bar small {
-        font-size: 10px;
-      }
-
-      .confirm {
-        padding: 12px 13px;
-        font-size: 12px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fbf3e4">
+
+<title>Chá de Casa Nova | Flá & Duda</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Great+Vibes&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --cream: #fbf3e4;
+  --pink: #f8b9c8;
+  --coral: #ff9c86;
+  --orange: #f8792d;
+  --wine: #963052;
+  --ink: #513746;
+  --line: #ead7cf;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  font-family: "DM Sans", sans-serif;
+  background-color: #fde3de;
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(255,144,120,.73) 50%,
+      transparent 50%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(248,168,190,.65) 50%,
+      transparent 50%
+    );
+  background-size: 76px 76px;
+}
+
+/* Estrutura principal */
+
+.page {
+  width: min(850px, calc(100% - 42px));
+  min-height: calc(100vh - 28px);
+  margin: 14px auto;
+  padding: 32px clamp(17px,5vw,55px) 145px;
+  background: var(--cream);
+  box-shadow: 0 8px 40px #7b374022;
+  border: 1px solid #ead7cf;
+}
+
+/* Cabeçalho */
+
+.hero {
+  position: relative;
+  text-align: center;
+  padding: 28px 8px 40px;
+  border-bottom: 1px solid var(--line);
+}
+
+.overline {
+  font: 400 17px "Playfair Display", serif;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+}
+
+.script {
+  font-family: "Great Vibes", cursive;
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.hero h1 {
+  font-size: clamp(60px,12vw,105px);
+  color: var(--orange);
+  margin: 8px 0 -5px;
+}
+
+.names {
+  font-size: clamp(56px,10vw,92px);
+  color: var(--wine);
+  margin: 0;
+}
+
+.hearts {
+  color: var(--wine);
+  font-size: 20px;
+  letter-spacing: 9px;
+  margin: 12px 0;
+}
+
+/* Porta original do convite */
+
+.door {
+  display: block;
+  width: min(100%,320px);
+  height: auto;
+  margin: 10px auto;
+  opacity: .28;
+  pointer-events: none;
+  user-select: none;
+}
+
+.intro {
+  max-width: 510px;
+  margin: 15px auto 0;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+/* Lista de presentes */
+
+.section-head {
+  text-align: center;
+  padding: 38px 0 18px;
+}
+
+.section-head h2 {
+  font: 400 clamp(30px,5vw,42px)
+    "Playfair Display", serif;
+  color: var(--wine);
+  margin: 0 0 10px;
+}
+
+.section-head p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #876a79;
+}
+
+.tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.status {
+  color: #846c78;
+  font-size: 13px;
+}
+
+button {
+  font-family: "DM Sans", sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.refresh {
+  background: transparent;
+  color: var(--wine);
+  border: 1px solid #d5a7b4;
+  border-radius: 30px;
+  padding: 10px 16px;
+}
+
+.category {
+  background: #fffaf4;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  margin: 14px 0;
+  overflow: hidden;
+}
+
+.category summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 18px;
+  color: var(--wine);
+  cursor: pointer;
+  list-style: none;
+  font: 500 20px "Playfair Display", serif;
+}
+
+.category summary::-webkit-details-marker {
+  display: none;
+}
+
+.category summary::after {
+  content: "⌄";
+  font: 22px "DM Sans", sans-serif;
+}
+
+.category[open] summary::after {
+  content: "⌃";
+}
+
+.count {
+  margin-left: auto;
+  color: #967988;
+  font: 11px "DM Sans", sans-serif;
+  white-space: nowrap;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 18px;
+  border-top: 1px solid #f1e3dc;
+  cursor: pointer;
+}
+
+.item:hover {
+  background: #fff0ee;
+}
+
+.item input {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--wine);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.item .name {
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.item.taken {
+  background: #f8f0eb;
+  color: #a18b92;
+  cursor: default;
+}
+
+.item.taken .name {
+  text-decoration: line-through;
+}
+
+.item.pending {
+  background: #f8f3ed;
+  opacity: .7;
+  cursor: default;
+}
+
+.tag {
+  font-size: 11px;
+  color: #927583;
+}
+
+.notice {
+  padding: 14px 17px;
+  background: #f5e2e7;
+  border-radius: 12px;
+  margin: 15px 0;
+  color: var(--wine);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.notice.error {
+  background: #ffe0d9;
+  color: #963c32;
+}
+
+#loading {
+  text-align: center;
+  padding: 28px;
+  color: #886d7c;
+}
+
+/* Confirmação de presença */
+
+.rsvp-section {
+  margin: 45px 0 15px;
+  padding: 30px 26px;
+  background: #fffaf4;
+  border: 2px solid var(--pink);
+  border-radius: 18px;
+  box-shadow: 0 5px 20px #9630520b;
+}
+
+.rsvp-section h2 {
+  margin: 0 0 8px;
+  text-align: center;
+  color: var(--wine);
+  font: 400 clamp(30px,5vw,42px)
+    "Playfair Display", serif;
+}
+
+.rsvp-info {
+  text-align: center;
+  font-size: 13px;
+  color: #987387;
+}
+
+.rsvp-desc {
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 14px 0 25px;
+}
+
+.rsvp-form {
+  display: grid;
+  gap: 18px;
+}
+
+.rsvp-field {
+  display: grid;
+  gap: 8px;
+}
+
+.rsvp-label {
+  color: var(--wine);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.rsvp-input {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background: white;
+  color: var(--ink);
+  border: 1px solid #dbb8c1;
+  border-radius: 10px;
+  font: 14px "DM Sans", sans-serif;
+}
+
+.rsvp-input:focus {
+  outline: 2px solid var(--pink);
+  outline-offset: 1px;
+}
+
+.rsvp-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.rsvp-choice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.rsvp-choice input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--wine);
+}
+
+.rsvp-submit {
+  width: 100%;
+  padding: 16px;
+  color: white;
+  background: var(--wine);
+  border: 0;
+  border-radius: 30px;
+  font-size: 14px;
+}
+
+.rsvp-submit:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+.rsvp-msg {
+  color: var(--wine);
+  font-size: 13px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.rsvp-msg.error {
+  color: #a04439;
+}
+
+/* Rodapé */
+
+.footer {
+  margin-top: 38px;
+  color: var(--wine);
+  text-align: center;
+  font: 21px "Playfair Display", serif;
+}
+
+/* Barra fixa dos presentes */
+
+.bar {
+  position: fixed;
+  z-index: 10;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff8f0f9;
+  border-top: 2px solid var(--pink);
+  padding: 14px 18px
+    calc(14px + env(safe-area-inset-bottom));
+  box-shadow: 0 -5px 24px #4b223014;
+}
+
+.bar-inner {
+  max-width: 740px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.bar strong {
+  font-size: 14px;
+}
+
+.bar small {
+  display: block;
+  margin-top: 5px;
+  color: #987b88;
+  font-size: 12px;
+}
+
+.confirm {
+  background: var(--wine);
+  color: white;
+  border: 0;
+  border-radius: 35px;
+  padding: 15px 20px;
+  white-space: nowrap;
+}
+
+.confirm:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+/* Celular */
+
+@media (max-width:600px) {
+  body {
+    background-size: 54px 54px;
+  }
+
+  .page {
+    width: calc(100% - 30px);
+    margin: 15px auto;
+    padding: 20px 15px 145px;
+  }
+
+  .hero {
+    padding: 25px 0 35px;
+  }
+
+  .overline {
+    font-size: 13px;
+    letter-spacing: .32em;
+  }
+
+  .hero h1 {
+    font-size: clamp(58px,17vw,84px);
+  }
+
+  .names {
+    font-size: clamp(51px,15vw,77px);
+  }
+
+  .door {
+    width: min(100%,260px);
+    opacity: .28;
+  }
+
+  .intro {
+    font-size: 14px;
+  }
+
+  .category summary {
+    padding: 16px 12px;
+    font-size: 18px;
+  }
+
+  .item {
+    padding: 13px 12px;
+  }
+
+  .tag {
+    font-size: 10px;
+  }
+
+  .rsvp-section {
+    margin-top: 30px;
+    padding: 23px 15px;
+  }
+
+  .bar {
+    left: 7px;
+    right: 7px;
+    bottom: 7px;
+    border: 1px solid var(--pink);
+    border-radius: 13px;
+    padding: 12px 11px
+      calc(12px + env(safe-area-inset-bottom));
+  }
+
+  .bar strong {
+    font-size: 12px;
+  }
+
+  .bar small {
+    font-size: 10px;
+  }
+
+  .confirm {
+    padding: 12px 13px;
+    font-size: 12px;
+  }
+}
+</style>
 </head>
 
 <body>
-  <main class="page">
 
-    <header class="hero">
-      <div class="overline">Chá de</div>
+<main class="page">
 
-      <h1 class="script">casa nova</h1>
+  <header class="hero">
+    <div class="overline">Chá de</div>
 
-      <div class="names script">
-        Flá &amp; Duda
-      </div>
+    <h1 class="script">casa nova</h1>
 
-      <div class="hearts" aria-hidden="true">
-        ♥ ♥ ♥
-      </div>
+    <div class="names script">
+      Flá &amp; Duda
+    </div>
 
-      <p class="intro">
-        Estamos preparando nosso novo cantinho
-        com muito amor!
-        <br><br>
-        Sua presença já é um presente.
-        <br>
-        Se quiser nos ajudar nessa nova fase,
-        escolha um mimo da nossa lista. ♡
+    <div class="hearts">♥ ♥ ♥</div>
+
+    <img
+      class="door"
+      src="./porta.png"
+      alt=""
+      aria-hidden="true"
+    >
+
+    <p class="intro">
+      Estamos preparando nosso novo cantinho
+      com muito amor!
+      <br><br>
+      Sua presença já é um presente.
+      <br>
+      Se quiser nos ajudar nessa nova fase,
+      escolha um mimo da nossa lista. ♡
+    </p>
+  </header>
+
+  <!-- LISTA DE PRESENTES -->
+
+  <section aria-labelledby="list-title">
+
+    <div class="section-head">
+      <h2 id="list-title">
+        Nossa lista de presentes
+      </h2>
+
+      <p>
+        Escolha com carinho o que gostaria
+        de nos presentear.
       </p>
-    </header>
+    </div>
 
-    <section aria-labelledby="list-title">
+    <div class="tools">
+      <span class="status" id="status">
+        Carregando presentes...
+      </span>
 
-      <div class="section-head">
-        <h2 id="list-title">
-          Nossa lista de presentes
-        </h2>
+      <button class="refresh" id="reload"
+        type="button">
+        ↻ Atualizar lista
+      </button>
+    </div>
 
-        <p>
-          Escolha com carinho o que gostaria
-          de nos presentear.
-        </p>
-      </div>
+    <div id="notice"
+      role="status"
+      aria-live="polite"></div>
 
-      <div class="tools">
-        <span class="status" id="status">
-          Carregando presentes...
+    <div id="loading">
+      Carregando a lista...
+    </div>
+
+    <div id="list"></div>
+
+  </section>
+
+  <!-- CONFIRMAÇÃO DE PRESENÇA -->
+
+  <section class="rsvp-section"
+    aria-labelledby="rsvp-heading">
+
+    <h2 id="rsvp-heading">
+      Confirme sua presença ♡
+    </h2>
+
+    <div class="rsvp-info">
+      14 de novembro de 2026 · sábado às 15h
+    </div>
+
+    <p class="rsvp-desc">
+      Vamos adorar celebrar nosso novo lar
+      com você!
+      <br>
+      Conte pra gente se vai conseguir vir.
+    </p>
+
+    <form id="rsvp-form" class="rsvp-form">
+
+      <label class="rsvp-field">
+        <span class="rsvp-label">
+          Seu nome
         </span>
 
-        <button
-          class="refresh"
-          id="reload"
-          type="button">
-          ↻ Atualizar lista
-        </button>
-      </div>
+        <input
+          class="rsvp-input"
+          id="rsvp-name"
+          name="nome"
+          type="text"
+          required
+          minlength="2"
+          maxlength="80"
+          autocomplete="name"
+          placeholder="Como podemos te chamar?"
+        >
+      </label>
 
-      <div
-        id="notice"
-        role="status"
-        aria-live="polite"></div>
+      <fieldset style="border:0;padding:0;margin:0">
+        <legend class="rsvp-label"
+          style="margin-bottom:10px">
+          Você vai participar?
+        </legend>
 
-      <div id="loading">
-        Carregando a lista...
-      </div>
+        <div class="rsvp-options">
 
-      <div id="list"></div>
-    </section>
+          <label class="rsvp-choice">
+            <input
+              type="radio"
+              name="presenca"
+              value="sim"
+              checked
+            >
+            Sim, estarei lá! ♡
+          </label>
 
-    <p class="footer">
-      Com amor, Flá &amp; Duda ♡
-    </p>
-  </main>
+          <label class="rsvp-choice">
+            <input
+              type="radio"
+              name="presenca"
+              value="nao"
+            >
+            Não poderei ir
+          </label>
 
-  <div class="bar">
-    <div class="bar-inner">
+        </div>
+      </fieldset>
 
-      <div>
-        <strong id="selectionCount">
-          Nenhum presente selecionado
-        </strong>
+      <label class="rsvp-field"
+        id="rsvp-people-box">
 
-        <small>
-          Selecione e confirme sua escolha
-        </small>
-      </div>
+        <span class="rsvp-label">
+          Quantas pessoas vão, incluindo você?
+        </span>
+
+        <select
+          class="rsvp-input"
+          id="rsvp-people"
+          name="pessoas"
+        >
+          <option value="1">1 pessoa</option>
+          <option value="2">2 pessoas</option>
+          <option value="3">3 pessoas</option>
+          <option value="4">4 pessoas</option>
+          <option value="5">5 pessoas</option>
+        </select>
+
+      </label>
 
       <button
-        id="confirm"
-        class="confirm"
-        type="button"
-        disabled>
-        Confirmar presentes ♡
+        class="rsvp-submit"
+        id="rsvp-submit"
+        type="submit"
+      >
+        Confirmar presença ♡
       </button>
 
+      <div
+        id="rsvp-feedback"
+        class="rsvp-msg"
+        role="status"
+        aria-live="polite"
+      ></div>
+
+    </form>
+
+  </section>
+
+  <p class="footer">
+    Com amor, Flá &amp; Duda ♡
+  </p>
+
+</main>
+
+<!-- CONFIRMAÇÃO DOS PRESENTES -->
+
+<div class="bar">
+  <div class="bar-inner">
+
+    <div>
+      <strong id="selectionCount">
+        Nenhum presente selecionado
+      </strong>
+
+      <small>
+        Selecione e confirme sua escolha
+      </small>
     </div>
+
+    <button
+      id="confirm"
+      class="confirm"
+      type="button"
+      disabled
+    >
+      Confirmar presentes ♡
+    </button>
+
   </div>
+</div>
 
-  <script>
-    /*
-      Presentes adicionais.
+<script>
 
-      Itens que ainda não existem no Google Sheets
-      aparecem como "Aguardando cadastro".
+/* PRESENTES ADICIONAIS */
 
-      Quando estiverem na planilha com status
-      Disponível, podem ser selecionados normalmente.
-    */
+const presentesNovos = [
+  ["Cortador de pizza", "Cozinha"],
+  ["Espremedor de limão", "Cozinha"],
+  ["Forma de cupcake", "Cozinha"],
+  ["Luva térmica", "Cozinha"],
+  ["Descanso de panela", "Cozinha"],
+  ["Fouet (batedor de arame)", "Cozinha"],
+  ["Colher de sorvete", "Cozinha"],
+  ["Rolo de massa", "Cozinha"],
+  ["Centrífuga de salada", "Cozinha"],
+  ["Bowl de inox", "Cozinha"],
+  ["Meleira", "Mesa posta"],
+  ["Organizador de chá em madeira", "Mesa posta"],
+  ["Bomboniere", "Mesa posta"],
+  ["Jogo de taças de vinho", "Mesa posta"],
+  ["Jogo de taças de espumante", "Mesa posta"],
+  ["Cafeteira", "Eletroportáteis"]
+];
 
-    const presentesNovos = [
-      ["Cortador de pizza", "Cozinha"],
-      ["Espremedor de limão", "Cozinha"],
-      ["Forma de cupcake", "Cozinha"],
-      ["Luva térmica", "Cozinha"],
-      ["Descanso de panela", "Cozinha"],
-      ["Fouet (batedor de arame)", "Cozinha"],
-      ["Colher de sorvete", "Cozinha"],
-      ["Rolo de massa", "Cozinha"],
-      ["Centrífuga de salada", "Cozinha"],
-      ["Bowl de inox", "Cozinha"],
-      ["Meleira", "Mesa posta"],
-      ["Organizador de chá em madeira", "Mesa posta"],
-      ["Bomboniere", "Mesa posta"],
-      ["Jogo de taças de vinho", "Mesa posta"],
-      ["Jogo de taças de espumante", "Mesa posta"],
-      ["Cafeteira", "Eletroportáteis"]
-    ];
+let items = [];
+let selected = new Set();
+let busy = false;
 
-    let items = [];
-    let selected = new Set();
-    let busy = false;
+const list = document.querySelector("#list");
+const status = document.querySelector("#status");
+const notice = document.querySelector("#notice");
+const confirmBtn = document.querySelector("#confirm");
+const loading = document.querySelector("#loading");
 
-    const list = document.querySelector("#list");
-    const status = document.querySelector("#status");
-    const notice = document.querySelector("#notice");
-    const confirmBtn = document.querySelector("#confirm");
-    const loading = document.querySelector("#loading");
+function normalize(text) {
+  return String(text || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim()
+    .toLowerCase();
+}
 
-    function normalize(text) {
-      return String(text || "")
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .trim()
-        .toLowerCase();
+/* Mensagens */
+
+function message(text, error = false) {
+  notice.replaceChildren();
+
+  if (!text) return;
+
+  const div = document.createElement("div");
+  div.className = "notice" +
+    (error ? " error" : "");
+
+  div.textContent = text;
+  notice.append(div);
+}
+
+/* Botão dos presentes */
+
+function updateButton() {
+  const n = selected.size;
+
+  document.querySelector("#selectionCount")
+    .textContent = n
+      ? `${n} presente(s) selecionado(s)`
+      : "Nenhum presente selecionado";
+
+  confirmBtn.disabled = busy || !n;
+
+  confirmBtn.textContent = busy
+    ? "Aguarde..."
+    : "Confirmar presentes ♡";
+}
+
+/* Adiciona itens que faltam cadastrar */
+
+function addNewItems(serverItems) {
+  const result = serverItems.map(item => ({
+    ...item,
+    pending: false
+  }));
+
+  const existing = new Set(
+    result.map(item => normalize(item.name))
+  );
+
+  for (const [name, category] of presentesNovos) {
+    if (!existing.has(normalize(name))) {
+      result.push({
+        name,
+        category,
+        reserved: false,
+        pending: true
+      });
     }
+  }
 
-    // Exibe mensagens ao convidado
-    function message(text, error = false) {
-      notice.replaceChildren();
+  return result;
+}
 
-      if (!text) return;
+/* Montagem da lista */
 
-      const div = document.createElement("div");
-      div.className = "notice" +
-        (error ? " error" : "");
+function render() {
+  const expanded = new Set(
+    [...list.querySelectorAll("details[open]")]
+      .map(el => el.dataset.category)
+  );
 
-      div.textContent = text;
-      notice.append(div);
-    }
+  const firstRender = !list.children.length;
+  list.replaceChildren();
 
-    // Atualiza o botão de confirmação
-    function updateButton() {
-      const n = selected.size;
+  const groups = [
+    ...new Set(items.map(item => item.category))
+  ];
 
-      document.querySelector("#selectionCount")
-        .textContent = n
-          ? `${n} presente(s) selecionado(s)`
-          : "Nenhum presente selecionado";
+  for (const category of groups) {
+    const group = items.filter(
+      item => item.category === category
+    );
 
-      confirmBtn.disabled = busy || !n;
+    const details = document.createElement("details");
+    details.className = "category";
+    details.dataset.category = category;
 
-      confirmBtn.textContent = busy
-        ? "Aguarde..."
-        : "Confirmar presentes ♡";
-    }
+    details.open = firstRender
+      ? groups.indexOf(category) === 0
+      : expanded.has(category);
 
-    // Combina os presentes da planilha com os novos
-    function addNewItems(serverItems) {
-      const result = serverItems.map(item => ({
-        ...item,
-        pending: false
-      }));
+    const summary = document.createElement("summary");
 
-      const existing = new Set(
-        result.map(item => normalize(item.name))
-      );
+    const title = document.createElement("span");
+    title.textContent = category;
 
-      for (const [name, category] of presentesNovos) {
-        if (!existing.has(normalize(name))) {
-          result.push({
-            name,
-            category,
-            reserved: false,
-            pending: true
-          });
-        }
-      }
+    const count = document.createElement("span");
+    count.className = "count";
 
-      return result;
-    }
-
-    // Renderiza as categorias e checkboxes
-    function render() {
-      const expanded = new Set(
-        [...list.querySelectorAll("details[open]")]
-          .map(el => el.dataset.category)
-      );
-
-      const firstRender = !list.children.length;
-      list.replaceChildren();
-
-      const groups = [
-        ...new Set(items.map(item => item.category))
-      ];
-
-      for (const category of groups) {
-        const group = items.filter(
-          item => item.category === category
-        );
-
-        const details = document.createElement("details");
-        details.className = "category";
-        details.dataset.category = category;
-
-        details.open = firstRender
-          ? groups.indexOf(category) === 0
-          : expanded.has(category);
-
-        const summary = document.createElement("summary");
-
-        const title = document.createElement("span");
-        title.textContent = category;
-
-        const count = document.createElement("span");
-        count.className = "count";
-
-        count.textContent =
-          group.filter(
-            i => !i.reserved && !i.pending
-          ).length + " disponíveis";
-
-        summary.append(title, count);
-        details.append(summary);
-
-        for (const item of group) {
-          const row = document.createElement("label");
-
-          row.className =
-            "item" +
-            (item.reserved ? " taken" : "") +
-            (item.pending ? " pending" : "");
-
-          const checkbox = document.createElement("input");
-          checkbox.type = "checkbox";
-
-          checkbox.disabled =
-            item.reserved || item.pending || busy;
-
-          checkbox.checked =
-            item.reserved || selected.has(item.name);
-
-          checkbox.addEventListener("change", () => {
-            if (checkbox.checked) {
-              selected.add(item.name);
-            } else {
-              selected.delete(item.name);
-            }
-
-            updateButton();
-          });
-
-          const name = document.createElement("span");
-          name.className = "name";
-          name.textContent = item.name;
-
-          row.append(checkbox, name);
-
-          if (item.reserved || item.pending) {
-            const tag = document.createElement("span");
-            tag.className = "tag";
-
-            tag.textContent = item.reserved
-              ? "Indisponível"
-              : "Aguardando cadastro";
-
-            row.append(tag);
-          }
-
-          details.append(row);
-        }
-
-        list.append(details);
-      }
-
-      const available = items.filter(
+    count.textContent =
+      group.filter(
         i => !i.reserved && !i.pending
-      ).length;
+      ).length + " disponíveis";
 
-      const reserved = items.filter(
-        i => i.reserved
-      ).length;
+    summary.append(title, count);
+    details.append(summary);
 
-      status.textContent =
-        `${available} presentes disponíveis · ` +
-        `${reserved} já escolhidos`;
+    for (const item of group) {
+      const row = document.createElement("label");
 
-      updateButton();
-    }
+      row.className =
+        "item" +
+        (item.reserved ? " taken" : "") +
+        (item.pending ? " pending" : "");
 
-    // Carrega os dados via API da Vercel
-    async function load() {
-      try {
-        const response = await fetch("/api/items", {
-          cache: "no-store"
-        });
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
 
-        if (!response.ok) {
-          throw new Error(
-            "Não foi possível consultar os presentes."
-          );
+      checkbox.disabled =
+        item.reserved || item.pending || busy;
+
+      checkbox.checked =
+        item.reserved || selected.has(item.name);
+
+      checkbox.addEventListener("change", () => {
+        if (checkbox.checked) {
+          selected.add(item.name);
+        } else {
+          selected.delete(item.name);
         }
 
-        const data = await response.json();
-
-        if (!data.ok || !Array.isArray(data.items)) {
-          throw new Error(
-            data.error || "Erro ao carregar presentes"
-          );
-        }
-
-        items = addNewItems(data.items);
-
-        selected = new Set(
-          [...selected].filter(name =>
-            items.some(item =>
-              item.name === name &&
-              !item.reserved &&
-              !item.pending
-            )
-          )
-        );
-
-        loading.hidden = true;
-        message("");
-        render();
-
-      } catch (error) {
-        loading.hidden = false;
-
-        loading.textContent =
-          "Não foi possível carregar os presentes.";
-
-        message(error.message, true);
-      }
-    }
-
-    // Confirma a seleção
-    confirmBtn.addEventListener("click", async () => {
-      if (busy || !selected.size) return;
-
-      const chosen = [...selected];
-
-      const confirmed = window.confirm(
-        `Confirmar ${chosen.length} presente(s)? ` +
-        "Depois não será possível desfazer pelo site."
-      );
-
-      if (!confirmed) return;
-
-      busy = true;
-      render();
-
-      try {
-        const response = await fetch("/api/reserve", {
-          method: "POST",
-
-          headers: {
-            "Content-Type": "application/json"
-          },
-
-          body: JSON.stringify({
-            items: chosen
-          })
-        });
-
-        const data = await response.json();
-
-        if (!response.ok || !data.ok) {
-          message(
-            data.error ||
-            "Não foi possível confirmar os presentes.",
-            true
-          );
-
-          selected.clear();
-          await load();
-          return;
-        }
-
-        if (!Array.isArray(data.items)) {
-          throw new Error(
-            "Resposta inválida do servidor"
-          );
-        }
-
-        selected.clear();
-        items = addNewItems(data.items);
-
-        render();
-
-        message(
-          "Presentes confirmados! Muito obrigada " +
-          "pelo carinho. Agora estão indisponíveis " +
-          "para os outros convidados. ♡"
-        );
-
-      } catch (error) {
-        message(
-          "Não foi possível confirmar. Atualize a lista " +
-          "para verificar se a escolha foi registrada.",
-          true
-        );
-
-        selected.clear();
-        await load();
-
-      } finally {
-        busy = false;
-        render();
-      }
-    });
-
-    // Atualização manual
-    document.querySelector("#reload")
-      .addEventListener("click", () => {
-        message("");
-        load();
+        updateButton();
       });
 
-    // Carregamento inicial
+      const name = document.createElement("span");
+      name.className = "name";
+      name.textContent = item.name;
+
+      row.append(checkbox, name);
+
+      if (item.reserved || item.pending) {
+        const tag = document.createElement("span");
+        tag.className = "tag";
+
+        tag.textContent = item.reserved
+          ? "Indisponível"
+          : "Aguardando cadastro";
+
+        row.append(tag);
+      }
+
+      details.append(row);
+    }
+
+    list.append(details);
+  }
+
+  const available = items.filter(
+    i => !i.reserved && !i.pending
+  ).length;
+
+  const reserved = items.filter(
+    i => i.reserved
+  ).length;
+
+  status.textContent =
+    `${available} presentes disponíveis · ` +
+    `${reserved} já escolhidos`;
+
+  updateButton();
+}
+
+/* Carregar presentes */
+
+async function load() {
+  try {
+    const response = await fetch("/api/items", {
+      cache: "no-store"
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        "Não foi possível consultar os presentes."
+      );
+    }
+
+    const data = await response.json();
+
+    if (!data.ok || !Array.isArray(data.items)) {
+      throw new Error(
+        data.error || "Erro ao carregar presentes"
+      );
+    }
+
+    items = addNewItems(data.items);
+
+    selected = new Set(
+      [...selected].filter(name =>
+        items.some(item =>
+          item.name === name &&
+          !item.reserved &&
+          !item.pending
+        )
+      )
+    );
+
+    loading.hidden = true;
+    render();
+
+  } catch (error) {
+    loading.hidden = false;
+    loading.textContent =
+      "Não foi possível carregar os presentes.";
+
+    message(error.message, true);
+  }
+}
+
+/* Confirmar presentes */
+
+confirmBtn.addEventListener("click", async () => {
+  if (busy || !selected.size) return;
+
+  const chosen = [...selected];
+
+  if (!window.confirm(
+    `Confirmar ${chosen.length} presente(s)? ` +
+    "Depois não será possível desfazer pelo site."
+  )) return;
+
+  busy = true;
+  render();
+
+  try {
+    const response = await fetch("/api/reserve", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        items: chosen
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok || !data.ok) {
+      throw new Error(
+        data.error || "Não foi possível confirmar."
+      );
+    }
+
+    if (!Array.isArray(data.items)) {
+      throw new Error("Resposta inválida.");
+    }
+
+    selected.clear();
+    items = addNewItems(data.items);
+
+    render();
+
+    message(
+      "Presentes confirmados! Muito obrigada " +
+      "pelo carinho. ♡"
+    );
+
+  } catch (error) {
+    selected.clear();
+    await load();
+
+    message(
+      "Não foi possível concluir a confirmação. " +
+      "Confira a lista atualizada antes de tentar novamente.",
+      true
+    );
+
+  } finally {
+    busy = false;
+    render();
+  }
+});
+
+document.querySelector("#reload")
+  .addEventListener("click", () => {
+    message("");
     load();
+  });
 
-    // Atualização automática a cada 30 segundos
-    setInterval(() => {
-      if (!busy) load();
-    }, 30000);
+load();
 
-  </script>
+setInterval(() => {
+  if (!busy) load();
+}, 30000);
+
+/* CONFIRMAÇÃO DE PRESENÇA */
+
+const rsvpForm =
+  document.getElementById("rsvp-form");
+
+const rsvpPeopleBox =
+  document.getElementById("rsvp-people-box");
+
+const rsvpPeople =
+  document.getElementById("rsvp-people");
+
+const rsvpFeedback =
+  document.getElementById("rsvp-feedback");
+
+const rsvpSubmit =
+  document.getElementById("rsvp-submit");
+
+/* Mostra ou oculta quantidade de pessoas */
+
+function updateRSVP() {
+  const going =
+    rsvpForm.elements.presenca.value === "sim";
+
+  rsvpPeopleBox.hidden = !going;
+  rsvpPeople.disabled = !going;
+}
+
+rsvpForm
+  .querySelectorAll('input[name="presenca"]')
+  .forEach(el => {
+    el.addEventListener("change", updateRSVP);
+  });
+
+updateRSVP();
+
+/* Envia a confirmação ao Google Sheets */
+
+rsvpForm.addEventListener("submit", async event => {
+  event.preventDefault();
+
+  if (!rsvpForm.reportValidity() ||
+      rsvpSubmit.disabled) return;
+
+  const nome =
+    document.getElementById("rsvp-name")
+      .value.trim();
+
+  const presenca =
+    rsvpForm.elements.presenca.value;
+
+  const pessoas = presenca === "sim"
+    ? Number(rsvpPeople.value)
+    : 0;
+
+  rsvpSubmit.disabled = true;
+  rsvpFeedback.textContent =
+    "Enviando confirmação...";
+
+  rsvpFeedback.classList.remove("error");
+
+  try {
+    const response = await fetch("/api/rsvp", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        nome,
+        presenca,
+        pessoas
+      })
+    });
+
+    const result = await response.json();
+
+    if (!response.ok || !result.ok) {
+      throw new Error(
+        result.error ||
+        "Não foi possível confirmar agora."
+      );
+    }
+
+    rsvpFeedback.textContent =
+      presenca === "sim"
+        ? "Presença confirmada! Estamos ansiosas para te receber. ♡"
+        : "Resposta registrada! Obrigada por nos avisar. ♡";
+
+    rsvpForm.reset();
+    updateRSVP();
+
+  } catch (error) {
+    rsvpFeedback.textContent =
+      error.message ||
+      "Falha ao enviar. Tente novamente.";
+
+    rsvpFeedback.classList.add("error");
+
+  } finally {
+    rsvpSubmit.disabled = false;
+  }
+});
+
+</script>
 </body>
 </html>
